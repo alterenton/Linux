@@ -1,9 +1,9 @@
 # Instalación de Arch con UEFI
 Pasos para instalar
 ## Correcciones para comodidad
-´´´sh
+```
 localectl list-keymaps
-´´´
+```
 loadkeys es
 ls /usr/share/kbd/consolefonts/
 setfont ter-132b
