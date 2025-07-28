@@ -3,8 +3,9 @@ Pasos para instalar
 ## Correcciones para comodidad
 ```
 localectl list-keymaps
-```
+
 loadkeys es
+```
 ls /usr/share/kbd/consolefonts/
 setfont ter-132b
 ## Conexión a Internet
