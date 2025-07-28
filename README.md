@@ -49,3 +49,76 @@ Ahora, como hay un sistema de archivos novedoso, vamos a actualizarlo con
 ```
 mkfs.btrfs /dev/sda2
 ```
+## Crear subvolumes
+```
+mount /dev/sda2 /mnt
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+umount /mnt
+```
+## Montar subvolumenes
+```
+mount -o noatime,compress=zstd,subvol=@ /dev/sda2 /mnt
+mkdir -p /mnt/{boot,home}
+mount -o noatime,compress=zstd,subvol=@home /dev/sda2 /mnt/home
+mount /dev/sda1 /mnt/boot
+```
+## Instalar base
+```
+pacstrap -K /mnt base linux linux-firmware btrfs-progs
+```
+## Generar fstab
+```
+genfstab -U /mnt >> /mnt/etc/fstab
+```
+## Entras al sistema
+```
+arch-chroot /mnt
+```
+## Localización y horarios
+```
+ln -sf /usr/share/zoneinfo/America/Lima /etc/localtime
+hwclock --systohc
+```
+Buscando la opción en_US.UTF-8 para descomentar
+```
+pacman -S micro
+micro /etc/locale.gen
+```
+Resguardamos con
+```
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+```
+## Host y red
+```
+echo "bloodbound" > /etc/hostname
+pacman -S networkmanager
+systemctl enable NetworkManager
+```
+## Contraseña
+```
+passwd
+```
+## Bootloader
+```
+pacman -S grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=ArchGrub
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+## Usuario
+```
+useradd -m -G wheel enton
+passwd enton
+```
+Vamos a darle privilegios descomentando el **wheel**
+```
+pacman -S sudo
+micro /etc/sudoers
+```
+## Reiniciamos
+```
+exit
+umount -R /mnt
+reboot
+```
