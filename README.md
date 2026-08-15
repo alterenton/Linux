@@ -82,8 +82,8 @@ hwclock --systohc
 ```
 Buscando la opción en_US.UTF-8 para descomentar
 ```
-pacman -S micro
-micro /etc/locale.gen
+pacman -S nvim
+nvim /etc/locale.gen
 ```
 Resguardamos con
 ```
@@ -114,7 +114,7 @@ passwd enton
 Vamos a darle privilegios descomentando el **wheel**
 ```
 pacman -S sudo
-micro /etc/sudoers
+nim /etc/sudoers
 ```
 ## Reiniciamos
 ```
