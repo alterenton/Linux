@@ -114,7 +114,7 @@ passwd enton
 Vamos a darle privilegios descomentando el **wheel**
 ```
 pacman -S sudo
-nim /etc/sudoers
+nvim /etc/sudoers
 ```
 ## Reiniciamos
 ```
