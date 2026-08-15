@@ -63,6 +63,10 @@ mkdir -p /mnt/{boot,home}
 mount -o noatime,compress=zstd,subvol=@home /dev/sda2 /mnt/home
 mount /dev/sda1 /mnt/boot
 ```
+## Si es un disco desactualizado, recuperar las key con
+```
+pacman -Sy archlinux-keyring
+```
 ## Instalar base
 ```
 pacstrap -K /mnt base linux linux-firmware btrfs-progs
@@ -89,6 +93,7 @@ Resguardamos con
 ```
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "KEYMAP=es" > /etc/vconsole.conf
 ```
 ## Host y red
 ```
